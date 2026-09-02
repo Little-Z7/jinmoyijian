@@ -1,0 +1,7 @@
+interface:
+  display_name: "全国人大禁摩意见填写助手"
+  short_description: "逐次核对并填写全国人大摩托车政策意见，个人信息和提交均需确认"
+  default_prompt: "使用 $npc-motorcycle-opinion-assistant 在全国人大意见征集页面预填并核对禁摩相关意见，提交前先让我确认。"
+
+policy:
+  allow_implicit_invocation: true
