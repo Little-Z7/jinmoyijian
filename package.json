@@ -1,0 +1,16 @@
+{
+  "name": "jinmoyijian-agent-skill",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "A safety-bounded Agent Skill for reviewing and filling motorcycle-policy opinions on the NPC draft-law consultation site.",
+  "keywords": [
+    "agent-skills",
+    "pi-package"
+  ],
+  "pi": {
+    "skills": [
+      "./npc-motorcycle-opinion-assistant"
+    ]
+  }
+}

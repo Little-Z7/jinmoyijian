@@ -1,6 +1,6 @@
 # 禁摩意见提交 Skill
 
-这是一个正在设计中的 Codex skill 仓库，目标是协助用户在全国人大法律草案征求意见系统中填写并提交与摩托车通行政策相关的意见。
+这是一个面向多种 Agent Skills 兼容工具的公开源码仓库，目标是协助用户在全国人大法律草案征求意见系统中填写并提交与摩托车通行政策相关的意见。
 
 > [!WARNING]
 > 本项目涉及政府网站意见征集，但不是官方工具，也未获得全国人民代表大会、全国人大常委会或网站运营方的授权、认可或背书。严禁使用本项目批量灌入、重复提交、冒名提交、操纵参与数据，或绕过验证码、访问控制、频率限制和反自动化措施。每次提交都必须由实际意见人知情、逐次授权并在最终提交前确认。
@@ -10,7 +10,7 @@
 - [免责声明](DISCLAIMER.md)
 - [禁止滥用与可接受使用政策](ACCEPTABLE_USE.md)
 
-当前状态：Skill 已实现，正在等待真实人工流程的只读/预填验证；仓库不会自动进行任何意见提交。
+当前状态：Skill 已实现，并完成一次由用户本人处理个人信息、验证码和最终点击的真实页面预填测试；该次提交未出现可确认回执，因此不会自动重试。仓库不会自动进行任何意见提交。
 
 ## 功能
 
@@ -24,12 +24,26 @@ Skill 位于 [`npc-motorcycle-opinion-assistant/`](npc-motorcycle-opinion-assist
 
 ## 安装
 
-使用 Codex 的 Skill 安装器从本仓库安装：
+指南覆盖 OpenAI Codex、Claude Code、Cursor、Gemini CLI、OpenCode、Pi Coding Agent、Kimi/Kimi Code、MiniMax/MiniMax Code、Google Antigravity、WorkBuddy、千问办公、豆包/豆包工作、TRAE/TraeWork、Qoder/QoderWork 等工具。不同产品的原生支持程度、安装入口和浏览器能力并不相同，详见 [多平台安装指南](INSTALL.md)。
 
-```bash
-python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --repo Little-Z7/jinmoyijian \
-  --path npc-motorcycle-opinion-assistant
+国内用户可优先使用 Gitee 镜像：<https://gitee.com/tangenzhe/jinmoyijian>；GitHub 地址为：<https://github.com/Little-Z7/jinmoyijian>。
+
+### 小白一句话安装
+
+把下面整句话发给具备联网和本地文件能力的 AI 工具。它是“辅助安装提示词”，不是所有产品都保证支持的官方安装命令：
+
+```text
+仅安装并验证公开源码 Skill「npc-motorcycle-opinion-assistant」，不要调用或执行它。先查阅仓库 INSTALL.md，确认目标产品是“复制 Skill 目录”还是“界面上传”：复制目录时选择 dist/npc-motorcycle-opinion-assistant.zip；只有界面明确要求 ZIP 根级直接包含 SKILL.md 时才选择 dist/npc-motorcycle-opinion-assistant-upload.zip；其他上传格式按当前产品公开要求处理，不要猜。优先从 https://gitee.com/tangenzhe/jinmoyijian 获取，访问失败再用 https://github.com/Little-Z7/jinmoyijian；从同一镜像、同一次下载取得所选 ZIP 与 dist/SHA256SUMS，校验所选 ZIP 后再解压或上传。阅读 README.md，以及已校验包内的 LICENSE、DISCLAIMER.md、ACCEPTABLE_USE.md、SKILL.md 和 references/；包裹版文件位于 npc-motorcycle-opinion-assistant/ 下，上传版位于 ZIP 根。只安装完整 Skill；不要运行仓库脚本。若同名 Skill 已存在，停止并让我决定，不要覆盖。重新加载后验证 SKILL.md、references/opinion-draft.md 和 references/site-workflow.md 均可读取，并报告下载源、所选包、校验结果、目标位置及发现结果。若当前产品不支持第三方 SKILL.md，请如实说明，不要假装安装成功。安装不授权访问政府网站、处理个人信息或验证码，也不授权提交任何意见。
+```
+
+安装授权不等于意见提交授权。详细指南还提供了每个产品可单独复制的一句话、手动目录、验证方式和兼容性说明。
+
+### Codex 快速安装
+
+在 Codex 中发送：
+
+```text
+$skill-installer 请安装 https://github.com/Little-Z7/jinmoyijian/tree/main/npc-motorcycle-opinion-assistant，安装后验证完整目录并告诉我如何调用；现在不要执行这个 Skill。
 ```
 
 安装后开启一个新会话，并通过以下方式调用：
@@ -63,7 +77,18 @@ npc-motorcycle-opinion-assistant/
 └── references/
     ├── opinion-draft.md
     └── site-workflow.md
+
+dist/
+├── npc-motorcycle-opinion-assistant.zip
+├── npc-motorcycle-opinion-assistant-upload.zip
+└── SHA256SUMS
+
+package.json  # Pi Coding Agent 包清单
 ```
+
+两个发布 ZIP 还会把仓库根目录的 `LICENSE`、`DISCLAIMER.md` 和 `ACCEPTABLE_USE.md` 放进 Skill 目录；它们是发布包附加的许可证与安全文件，源码 Skill 目录本身仍保持上图结构。
+
+仓库根目录的 [`INSTALL.md`](INSTALL.md) 提供跨平台安装矩阵、一句话提示词和故障排查。
 
 ## 验证
 
@@ -75,6 +100,6 @@ git diff --check
 
 ## 许可证
 
-尚未选择开源许可证。在公开发布前需要确定许可证并添加 `LICENSE` 文件。
+本项目采用 [Apache License 2.0](LICENSE) 开源许可证，允许使用、修改和再分发，并包含明确的专利许可条款。
 
-禁止滥用政策是项目的安全边界与维护者支持政策，不应被误写进或冒充标准开源许可证条款。如需让用途限制具有许可证层面的法律约束力，应先取得专业法律意见，并重新评估项目能否继续称为开源软件。
+禁止滥用政策是项目的安全边界与维护者支持政策，不修改 Apache-2.0 的授权范围，也不冒充许可证条款。任何使用者仍须遵守适用法律、网站规则并自行承担提交行为责任。
