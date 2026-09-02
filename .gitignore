@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.local
+private/
+secrets/
+
+# Browser sessions and automation output
+auth-state*.json
+storage-state*.json
+.playwright/
+playwright-report/
+test-results/
+artifacts/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Node.js
+node_modules/
+
