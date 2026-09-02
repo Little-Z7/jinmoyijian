@@ -45,6 +45,7 @@ def main() -> None:
     required = (
         SKILL_ROOT / "SKILL.md",
         SKILL_ROOT / "agents" / "openai.yaml",
+        SKILL_ROOT / "references" / "environment-check.md",
         SKILL_ROOT / "references" / "opinion-draft.md",
         SKILL_ROOT / "references" / "site-workflow.md",
         *EXTRA_FILES,

@@ -25,6 +25,7 @@ npc-motorcycle-opinion-assistant/
 ├── SKILL.md
 ├── agents/openai.yaml
 └── references/
+    ├── environment-check.md
     ├── opinion-draft.md
     └── site-workflow.md
 ```
@@ -33,12 +34,12 @@ npc-motorcycle-opinion-assistant/
 
 这些 Raw 链接跟随可变的 `main` 分支。必须从同一镜像、同一次下载中获取 ZIP 与 `SHA256SUMS` 并完成校验；正式版本发布后优先使用对应标签或 Release 的固定文件。
 
-## 小白首选：复制这一句话
+## 一句话带你提建议就行
 
 把下面整句话发给支持本地文件、联网下载和 Skills 的 AI 助手：
 
 ```text
-仅安装并验证公开源码 Skill「npc-motorcycle-opinion-assistant」，不要调用或执行它。先查阅仓库 INSTALL.md，确认目标产品是“复制 Skill 目录”还是“界面上传”：复制目录时选择 dist/npc-motorcycle-opinion-assistant.zip；只有界面明确要求 ZIP 根级直接包含 SKILL.md 时才选择 dist/npc-motorcycle-opinion-assistant-upload.zip；其他上传格式按当前产品公开要求处理，不要猜。优先从 https://gitee.com/tangenzhe/jinmoyijian 获取，访问失败再用 https://github.com/Little-Z7/jinmoyijian；从同一镜像、同一次下载取得所选 ZIP 与 dist/SHA256SUMS，校验所选 ZIP 后再解压或上传。阅读 README.md，以及已校验包内的 LICENSE、DISCLAIMER.md、ACCEPTABLE_USE.md、SKILL.md 和 references/；包裹版文件位于 npc-motorcycle-opinion-assistant/ 下，上传版位于 ZIP 根。只安装完整 Skill；不要运行仓库脚本。若同名 Skill 已存在，停止并让我决定，不要覆盖。重新加载后验证 SKILL.md、references/opinion-draft.md 和 references/site-workflow.md 均可读取，并报告下载源、所选包、校验结果、目标位置及发现结果。若当前产品不支持第三方 SKILL.md，请如实说明，不要假装安装成功。安装不授权访问政府网站、处理个人信息或验证码，也不授权提交任何意见。
+仅安装并验证公开源码 Skill「npc-motorcycle-opinion-assistant」，不要调用或执行它。先查阅仓库 INSTALL.md，确认目标产品是“复制 Skill 目录”还是“界面上传”：复制目录时选择 dist/npc-motorcycle-opinion-assistant.zip；只有界面明确要求 ZIP 根级直接包含 SKILL.md 时才选择 dist/npc-motorcycle-opinion-assistant-upload.zip；其他上传格式按当前产品公开要求处理，不要猜。优先从 https://gitee.com/tangenzhe/jinmoyijian 获取，访问失败再用 https://github.com/Little-Z7/jinmoyijian；从同一镜像、同一次下载取得所选 ZIP 与 dist/SHA256SUMS，校验所选 ZIP 后再解压或上传。阅读 README.md，以及已校验包内的 LICENSE、DISCLAIMER.md、ACCEPTABLE_USE.md、SKILL.md 和 references/；包裹版文件位于 npc-motorcycle-opinion-assistant/ 下，上传版位于 ZIP 根。只安装完整 Skill；不要运行仓库脚本。若同名 Skill 已存在，停止并让我决定，不要覆盖。重新加载后验证 SKILL.md、references/environment-check.md、references/opinion-draft.md 和 references/site-workflow.md 均可读取，并报告下载源、所选包、校验结果、目标位置及发现结果。若当前产品不支持第三方 SKILL.md，请如实说明，不要假装安装成功。安装不授权访问政府网站、处理个人信息或验证码，也不授权提交任何意见。
 ```
 
 这句话的目标是让助手完成下载、安装、重载和验证，不是让助手立即投稿。运行命令或写入用户目录前，产品仍可能按自身权限机制向你确认。它也不是所有产品都承诺支持的官方“一键安装器”；没有本地文件或 Skill 导入能力的产品只能提供人工步骤。
@@ -48,27 +49,27 @@ npc-motorcycle-opinion-assistant/
 至少满足以下四项才算成功：
 
 1. 产品显示或列出了 `npc-motorcycle-opinion-assistant`；
-2. `SKILL.md`、`references/opinion-draft.md` 和 `references/site-workflow.md` 均可读取；
+2. `SKILL.md`、`references/environment-check.md`、`references/opinion-draft.md` 和 `references/site-workflow.md` 均可读取；
 3. 新会话中说“帮我填写禁摩意见”时，助手说明正在使用该 Skill，或允许手动选中它；
 4. 助手没有因为“自动触发”而跳过验证码、身份信息接管或最终提交确认。
 
 只收到一句“安装好了”但没有目录、技能列表或界面状态佐证，不算验证成功。
 
+## 运行前环境检查
+
+安装成功后，每次真正调用本 Skill 都会先检查当前会话是否具备网页操作能力。这个检查适用于本指南覆盖的全部产品：OpenAI Codex、Claude Code、Cursor、Gemini CLI、OpenCode、Pi Coding Agent、Kimi、Kimi Work、Kimi Code、MiniMax Agent、MiniMax Code、Google Antigravity、WorkBuddy、千问办公、豆包、豆包工作、TraeCode、TraeWork、Qoder、Qoder CLI 和 QoderWork。
+
+1. 优先确认能否连接用户明确指定的现有登录浏览器；只能新开隔离浏览器时必须说明不会自动继承登录态。
+2. 依次判断当前会话是否实际提供 Browser Use、浏览器控制、Playwright 或 Computer Use，而不是只看产品是否安装了 Skill。
+3. 工具已安装但关闭、未连接或未授权时，只按当前产品实际可见的设置入口引导用户开启，随后用读取 URL、标题或页面可见文字的无副作用动作验证。
+4. 没有任何网页控制能力时切换为人工协作：助手给出导航、正文和核对清单，用户操作网页；不能声称已预填或已提交。
+5. 登录状态失效时，仅在尚未进入提交阶段、页面没有待保存内容且不会重发 POST 时普通刷新一次；否则不刷新并交由用户本人处理。不读取或搬运 Cookie、令牌和密码。
+
+不同产品对这些能力的命名和开放范围不同。出现 Browser Use、Browser、Chrome、Playwright、Computer Use 等名称时仍要检查其工具说明与实时可调用状态；不要猜测隐藏开关，也不要为了启用能力关闭安全确认。完整规则见 [`references/environment-check.md`](npc-motorcycle-opinion-assistant/references/environment-check.md)。
+
 ## 支持矩阵
 
 状态含义：**官方目录**表示官方资料明确公开 `SKILL.md` 目录；**官方上传**表示官方只保证从界面上传；**适配后支持**表示需要产品插件格式；**仅临时兼容**表示只能把文件作为当前对话资料，不是持久安装。
-
-### 用户称呼与正式名称
-
-| 用户称呼 | 本指南采用的名称 | 说明 |
-| --- | --- | --- |
-| `trea` | TRAE / TraeCode | 很可能是拼写差异；若你指的是另一产品，请以实际产品链接为准 |
-| `treawork` | TraeWork | TRAE 的工作任务产品 |
-| `qordr` | Qoder | 很可能是拼写差异 |
-| `qordr work` | QoderWork | 与 Qoder IDE、Qoder CLI 分开说明 |
-| `piagent` | Pi Coding Agent | 指 pi.dev 的 Coding Agent，不等同于其他同名 Pi 产品 |
-| `minimaxcode` / `minimax` | MiniMax Code / MiniMax Agent | 两种产品形态分开核验插件能力 |
-| `kimicode` / `geminicli` / `claudecode` | Kimi Code CLI / Gemini CLI / Claude Code | 采用官方空格与大小写 |
 
 | 产品 | 状态 | 推荐安装方式 | 调用或验证 |
 | --- | --- | --- | --- |
@@ -83,11 +84,11 @@ npc-motorcycle-opinion-assistant/
 | Kimi 普通聊天 | 第三方持久导入未核验 | 仅使用当前产品实际可见的 Skills 入口；否则只作当前对话资料 | 不得把临时读取说成安装 |
 | MiniMax Code / MiniMax Agent | 适配后支持 | 官方以 Agent Plugin/插件市场为主；本仓库当前不是 MiniMax 插件 | 不得把临时读取说成安装 |
 | Google Antigravity 桌面/IDE | 官方目录 | 项目 `.agents/skills/`；不同形态的全局目录见后文 | 新会话自然语言触发 |
-| Tencent WorkBuddy | 官方上传 | “添加技能 → 上传技能”，按当前界面要求选择本地包 | 在已安装技能列表核验 |
+| WorkBuddy | 官方上传 | “添加技能 → 上传技能”，按当前界面要求选择本地包 | 在已安装技能列表核验 |
 | 千问办公（QwenWork） | 官方目录/对话安装 | 仓库链接对话安装、上传，或 `~/.qwenworkcn/skills/` | 输入 `/`、从“我的安装”选择 |
 | 豆包工作 | 外部 Skill 导入未核验 | 最新桌面端“工作任务”中仅使用实际可见且明确支持第三方 Skill 的入口 | 没有入口即停止 |
 | 豆包普通聊天 | 仅临时兼容 | 上传文件或读取仓库，仅用于当前对话 | 明确提示“未持久安装” |
-| TRAE / TraeCode | 官方目录/上传 | `.trae/skills/`、全局 `~/.trae-cn/skills/` 或技能界面 | 在技能与命令页面核验 |
+| TraeCode | 官方目录/上传 | `.trae/skills/`、全局 `~/.trae-cn/skills/` 或技能界面 | 在技能与命令页面核验 |
 | TraeWork | 官方上传 | 插件市场 → 技能 → 上传“界面上传包” | 在已安装技能中核验 |
 | Qoder IDE | 官方上传 | Extensions → Skills → Add Skills → Upload Skill | 输入 `/` 选择 |
 | Qoder CLI | 官方目录 | `~/.qoder/skills/` 或项目 `.qoder/skills/` | `/skills reload`、`/skills` |
@@ -95,11 +96,11 @@ npc-motorcycle-opinion-assistant/
 
 产品迭代很快；本表于 **2026-09-02** 按公开资料核对。界面与本表冲突时，以产品当前官方说明和实际可见入口为准，不要让助手猜测或写入未经确认的隐藏目录。`agents/openai.yaml` 是 Codex 专属元数据，其他工具可忽略；能读取 `SKILL.md` 也不等于具备操作浏览器、保留登录态或安全交接验证码的能力。
 
-## 各工具一句话安装
+## 各工具安装提示词
 
 以下提示词都只授权安装与验证，不授权打开政府网站或提交意见。
 
-### Tencent WorkBuddy
+### WorkBuddy
 
 ```text
 请只协助安装，不执行 Skill：先阅读 https://gitee.com/tangenzhe/jinmoyijian 的免责声明与禁止滥用政策（失败再用 GitHub 镜像）；如果当前 WorkBuddy 能调用“添加技能 → 上传技能”，请先告诉我界面实际接受的文件类型，再选择符合该要求的本地技能包并在已安装列表核验。不要假定 ZIP 根布局一定兼容；若格式不匹配或没有入口就停止，不要假装安装成功，也不要访问或提交任何意见。
@@ -107,22 +108,18 @@ npc-motorcycle-opinion-assistant/
 
 官方确认的手动路径是“添加技能 → 上传技能”。公开资料没有给出 WorkBuddy 自身的固定磁盘目录，也没有保证粘贴任意 Git URL 就能自动安装；不要把 CodeBuddy Code 的目录硬套到 WorkBuddy。
 
-### TRAE / TraeCode 与 TraeWork
-
-用户写的 `trea` 很可能是 **TRAE / TraeCode**，`treawork` 对应 **TraeWork**；如果实际产品不是它们，请不要套用下面路径。
+### TraeCode 与 TraeWork
 
 ```text
-请只安装并验证，不执行 Skill：从 https://gitee.com/tangenzhe/jinmoyijian 获取 npc-motorcycle-opinion-assistant，先阅读安全文件；TRAE/TraeCode 请把完整目录复制到当前项目 .trae/skills/npc-motorcycle-opinion-assistant/，TraeWork 请准备并上传 dist/npc-motorcycle-opinion-assistant-upload.zip。若目标已存在或当前版本没有官方技能入口，停止并告诉我，不要覆盖，也不要访问政府网站。
+请只安装并验证，不执行 Skill：从 https://gitee.com/tangenzhe/jinmoyijian 获取 npc-motorcycle-opinion-assistant，先阅读安全文件；TraeCode 请把完整目录复制到当前项目 .trae/skills/npc-motorcycle-opinion-assistant/，TraeWork 请准备并上传 dist/npc-motorcycle-opinion-assistant-upload.zip。若目标已存在或当前版本没有官方技能入口，停止并告诉我，不要覆盖，也不要访问政府网站。
 ```
 
-- TRAE/TraeCode 项目级：`.trae/skills/npc-motorcycle-opinion-assistant/`。
-- TRAE/TraeCode 全局：macOS/Linux 为 `~/.trae-cn/skills/npc-motorcycle-opinion-assistant/`；Windows 为 `%USERPROFILE%/.trae-cn/skills/npc-motorcycle-opinion-assistant/`。
-- TRAE 还可在“设置 → 技能与命令”中上传，并可启用 `.agents/skills/` 兼容目录。
+- TraeCode 项目级：`.trae/skills/npc-motorcycle-opinion-assistant/`。
+- TraeCode 全局：macOS/Linux 为 `~/.trae-cn/skills/npc-motorcycle-opinion-assistant/`；Windows 为 `%USERPROFILE%/.trae-cn/skills/npc-motorcycle-opinion-assistant/`。
+- TraeCode 还可在“设置 → 技能与命令”中上传，并可启用 `.agents/skills/` 兼容目录。
 - TraeWork：插件市场 → 技能 → 上传技能。上传包根目录必须直接包含 `SKILL.md`，因此使用本仓库的 `-upload.zip`，不要上传整个仓库 ZIP。
 
 ### Qoder、Qoder CLI 与 QoderWork
-
-用户写的 `qordr / qordr work` 很可能对应 **Qoder / QoderWork**；如果实际产品不是它们，请不要套用下面路径。
 
 ```text
 请从 https://gitee.com/tangenzhe/jinmoyijian （失败时改用 https://github.com/Little-Z7/jinmoyijian）下载 npc-motorcycle-opinion-assistant 完整目录，先审查免责声明与全部文件，再按当前产品的官方用户级 Skills 机制安装，重新加载技能并确认能自动匹配“禁摩意见”等触发词；现在只安装验证，不访问或提交任何意见。
@@ -132,9 +129,9 @@ npc-motorcycle-opinion-assistant/
 - Qoder CLI：复制到 `~/.qoder/skills/npc-motorcycle-opinion-assistant/`，执行 `/skills reload`，再用 `/skills` 查看。
 - QoderWork：可在对话中提供仓库链接让其下载指定子目录，也可从技能界面上传；用户级目录为 `~/.qoderwork/skills/npc-motorcycle-opinion-assistant/`。
 
-### 豆包与豆包办公
+### 豆包与豆包工作
 
-“豆包办公”在部分版本中显示为“工作任务”或“豆包工作”。目前引用的官方公开资料没有确认它可导入任意外部 `SKILL.md`、固定用户目录或 Gitee 仓库；普通豆包聊天同样没有已核验的外部 Agent Skills 持久安装能力。这里只提供条件式操作，不能据此宣称兼容。
+豆包桌面端的相关入口可能显示为“工作任务”。目前引用的官方公开资料没有确认豆包工作可导入任意外部 `SKILL.md`、固定用户目录或 Gitee 仓库；普通豆包聊天同样没有已核验的外部 Agent Skills 持久安装能力。这里只提供条件式操作，不能据此宣称兼容。
 
 ```text
 请先确认我使用的是最新版豆包桌面端“工作任务”。只下载并审查 https://gitee.com/tangenzhe/jinmoyijian 的界面上传包；如果当前界面实际显示第三方 Skill 上传入口，再导入并在技能列表核验。若没有入口，请明确说明当前版本不能持久安装并停止，不要把临时读取说成安装，也不要开始提交意见。
@@ -156,7 +153,7 @@ npc-motorcycle-opinion-assistant/
 
 - Kimi Work：官方资料确认可上传本地技能；仅使用当前 Skills 面板公开的上传入口，安装后输入 `/` 检查。
 - Kimi 普通聊天：官方资料仅确认 Skills 市场、对话创建及生态概念，没有确认任意第三方 `SKILL.md` 或 ZIP 的持久导入。只能在实际出现明确导入入口时尝试；否则将文件作为当前对话资料并明确“未安装”。
-- Kimi Code：复制到 `~/.kimi-code/skills/npc-motorcycle-opinion-assistant/`，或通用目录 `~/.agents/skills/npc-motorcycle-opinion-assistant/`；重开会话后用 `/skill:npc-motorcycle-opinion-assistant` 调用。可使用这句：`请只安装并验证，不执行 Skill：从 Gitee 镜像下载并审查仓库，把完整 Skill 目录复制到 ~/.kimi-code/skills/，确认两份 references 可读；目标已存在时停止，不要覆盖。`
+- Kimi Code：复制到 `~/.kimi-code/skills/npc-motorcycle-opinion-assistant/`，或通用目录 `~/.agents/skills/npc-motorcycle-opinion-assistant/`；重开会话后用 `/skill:npc-motorcycle-opinion-assistant` 调用。可使用这句：`请只安装并验证，不执行 Skill：从 Gitee 镜像下载并审查仓库，把完整 Skill 目录复制到 ~/.kimi-code/skills/，确认 environment-check.md、opinion-draft.md 和 site-workflow.md 均可读；目标已存在时停止，不要覆盖。`
 - Kimi Code 的 Git 仓库插件直装只明确支持 GitHub；Gitee 应先克隆到本地再复制 Skill 目录，或使用 HTTP(S) ZIP。不要把本仓库当成带 `kimi.plugin.json` 的 Kimi 插件。
 
 ### MiniMax Agent 与 MiniMax Code
@@ -204,10 +201,10 @@ gemini skills link ./npc-motorcycle-opinion-assistant
 ### 千问办公（QwenWork）
 
 ```text
-请从 https://gitee.com/tangenzhe/jinmoyijian 下载 npc-motorcycle-opinion-assistant 子目录，先阅读免责声明与禁止滥用政策，再完整安装到 ~/.qwenworkcn/skills/npc-motorcycle-opinion-assistant/；若同名目录存在先停止询问，不要覆盖。安装后确认 SKILL.md 和两份 references 可读，并在“我的安装”或 `/` 列表中核验。本次只安装，不访问或提交任何意见。
+请从 https://gitee.com/tangenzhe/jinmoyijian 下载 npc-motorcycle-opinion-assistant 子目录，先阅读免责声明与禁止滥用政策，再完整安装到 ~/.qwenworkcn/skills/npc-motorcycle-opinion-assistant/；若同名目录存在先停止询问，不要覆盖。安装后确认 SKILL.md 和三份 references 可读，并在“我的安装”或 `/` 列表中核验。本次只安装，不访问或提交任何意见。
 ```
 
-官方还支持把开源仓库链接发给 QwenWork 并要求安装指定子目录。手动路径：扩展 → 技能 → 安装技能；按界面选择 `SKILL.md` 与 `references/` 等辅助文件，只有当前界面明确接受根级 `SKILL.md` ZIP 时才使用 `-upload.zip`，不要上传整个仓库 ZIP。若当前入口只能接收单个 `SKILL.md` 且无法同时提供两份 `references/`，不能宣称完整安装。
+官方还支持把开源仓库链接发给 QwenWork 并要求安装指定子目录。手动路径：扩展 → 技能 → 安装技能；按界面选择 `SKILL.md` 与 `references/` 等辅助文件，只有当前界面明确接受根级 `SKILL.md` ZIP 时才使用 `-upload.zip`，不要上传整个仓库 ZIP。若当前入口只能接收单个 `SKILL.md` 且无法同时提供三份 `references/`，不能宣称完整安装。
 
 文件系统安装：复制完整目录到 `~/.qwenworkcn/skills/npc-motorcycle-opinion-assistant/`，然后重启或刷新千问办公。
 
@@ -219,7 +216,7 @@ gemini skills link ./npc-motorcycle-opinion-assistant
 
 项目级也可使用 `.opencode/skills/` 或 `.agents/skills/`。如果同名目录已存在，先比较内容，不要无提示覆盖用户修改。
 
-### Pi Coding Agent（用户写作 piagent）
+### Pi Coding Agent
 
 本仓库包含只声明 Skill 路径、没有依赖和生命周期脚本的 `package.json`，因此 Pi 可以把 Gitee 仓库作为包安装：
 
@@ -246,14 +243,14 @@ OpenAI 官方说明 `$skill-installer` 可处理其他仓库，但没有点名 G
 ### Claude Code
 
 ```text
-请优先从 https://gitee.com/tangenzhe/jinmoyijian 下载仓库（失败再用 GitHub 同名仓库），先阅读免责声明和禁止滥用政策；若 ~/.claude/skills/npc-motorcycle-opinion-assistant 已存在就停止询问，否则复制完整目录并确认两份 references 可读，再验证可通过 /npc-motorcycle-opinion-assistant 调用。现在只安装，不执行或提交。
+请优先从 https://gitee.com/tangenzhe/jinmoyijian 下载仓库（失败再用 GitHub 同名仓库），先阅读免责声明和禁止滥用政策；若 ~/.claude/skills/npc-motorcycle-opinion-assistant 已存在就停止询问，否则复制完整目录并确认三份 references 可读，再验证可通过 /npc-motorcycle-opinion-assistant 调用。现在只安装，不执行或提交。
 ```
 
 本仓库目前没有 `.claude-plugin/marketplace.json`，因此采用原生 Skill 目录安装，不宣称可直接作为 Claude 插件市场源。
 
 ## 人工下载与安装
 
-当一句话安装失败时，按下面做：
+当辅助安装未成功时，按下面做：
 
 1. 复制到磁盘目录时下载“解压安装包”；只有界面明确要求 ZIP 根级直接包含 `SKILL.md` 时才下载“界面上传包”，其他界面按其实际文件类型和布局要求准备。如果改为下载整个仓库 ZIP，再找到其中的 `npc-motorcycle-opinion-assistant` 文件夹；
 2. 确认 `SKILL.md` 直接位于 `npc-motorcycle-opinion-assistant` 文件夹内；
@@ -282,7 +279,7 @@ OpenAI 官方说明 `$skill-installer` 可处理其他仓库，但没有点名 G
 原生支持自动匹配的平台通常会在相关请求中按需加载。自动触发失败时，可以直接说：
 
 ```text
-请使用 npc-motorcycle-opinion-assistant Skill，先核对官方页面和我的意见正文；任何提交动作前都必须再次让我确认。
+请使用 npc-motorcycle-opinion-assistant Skill，先检查当前会话是否具备浏览器或 Computer Use 能力，再核对官方页面和我的意见正文；缺少能力时引导我开启或切换为人工协作，任何提交动作前都必须再次让我确认。
 ```
 
 手动调用名称因产品而异：Codex 常用 `$名称`，Claude/Cursor/Qoder 常用 `/名称`，Kimi Code 常用 `/skill:名称`，Kimi Work/千问办公通常可在输入框键入 `/` 后选择。无论哪种方式，都不得把调用 Skill 理解为一次最终提交授权。
@@ -292,8 +289,8 @@ OpenAI 官方说明 `$skill-installer` 可处理其他仓库，但没有点名 G
 以下链接用于核对各产品公开的 Skills 能力和目录；产品更新后请优先查看其最新版本：
 
 - [OpenAI Codex：Build skills](https://learn.chatgpt.com/docs/build-skills)
-- [Tencent WorkBuddy：Skill Marketplace](https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Skills-Market)
-- [TRAE / TraeCode：Skills](https://docs.trae.cn/ide_skills)
+- [WorkBuddy：Skill Marketplace](https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Skills-Market)
+- [TraeCode：Skills](https://docs.trae.cn/ide_skills)
 - [TraeWork：Skills](https://docs.trae.cn/work_skills)
 - [Qoder IDE：Skills](https://docs.qoder.com/qoder/skills)
 - [Qoder CLI：Skills](https://docs.qoder.com/cli/Skills)

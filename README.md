@@ -10,11 +10,12 @@
 - [免责声明](DISCLAIMER.md)
 - [禁止滥用与可接受使用政策](ACCEPTABLE_USE.md)
 
-当前状态：Skill 已实现，并完成一次由用户本人处理个人信息、验证码和最终点击的真实页面预填测试；该次提交未出现可确认回执，因此不会自动重试。仓库不会自动进行任何意见提交。
+当前状态：Skill 已实现。仓库不会自动进行任何意见提交；提交结果不明确时立即停止且不自动重试。
 
 ## 功能
 
 - 在中国人大网当前征求意见列表中按完整标题定位《道路交通安全法（修订草案）》；
+- 运行前检查当前会话是否具备已登录浏览器控制、Browser Use、Playwright 或 Computer Use 能力，缺失时引导开启或切换为人工协作；
 - 在用户本人完成个人信息、登录或验证码后，按其选择预填四条摩托车政策意见；
 - 支持合并为一条总体意见，或按第十九、四十八、七十一、八十二条逐条处理；
 - 在每次最终提交前展示完整正文并取得本次确认；
@@ -24,16 +25,16 @@ Skill 位于 [`npc-motorcycle-opinion-assistant/`](npc-motorcycle-opinion-assist
 
 ## 安装
 
-指南覆盖 OpenAI Codex、Claude Code、Cursor、Gemini CLI、OpenCode、Pi Coding Agent、Kimi/Kimi Code、MiniMax/MiniMax Code、Google Antigravity、WorkBuddy、千问办公、豆包/豆包工作、TRAE/TraeWork、Qoder/QoderWork 等工具。不同产品的原生支持程度、安装入口和浏览器能力并不相同，详见 [多平台安装指南](INSTALL.md)。
+指南覆盖 OpenAI Codex、Claude Code、Cursor、Gemini CLI、OpenCode、Pi Coding Agent、Kimi、Kimi Work、Kimi Code、MiniMax Agent、MiniMax Code、Google Antigravity、WorkBuddy、千问办公、豆包、豆包工作、TraeCode、TraeWork、Qoder、Qoder CLI、QoderWork 等工具。不同产品的原生支持程度、安装入口和浏览器能力并不相同，详见 [多平台安装指南](INSTALL.md)。
 
 国内用户可优先使用 Gitee 镜像：<https://gitee.com/tangenzhe/jinmoyijian>；GitHub 地址为：<https://github.com/Little-Z7/jinmoyijian>。
 
-### 小白一句话安装
+### 一句话带你提建议就行
 
-把下面整句话发给具备联网和本地文件能力的 AI 工具。它是“辅助安装提示词”，不是所有产品都保证支持的官方安装命令：
+把下面整句话发给具备联网、本地文件和 Skills 能力的 AI 工具，它会协助完成安装与验证；不具备这些能力的产品会如实说明：
 
 ```text
-仅安装并验证公开源码 Skill「npc-motorcycle-opinion-assistant」，不要调用或执行它。先查阅仓库 INSTALL.md，确认目标产品是“复制 Skill 目录”还是“界面上传”：复制目录时选择 dist/npc-motorcycle-opinion-assistant.zip；只有界面明确要求 ZIP 根级直接包含 SKILL.md 时才选择 dist/npc-motorcycle-opinion-assistant-upload.zip；其他上传格式按当前产品公开要求处理，不要猜。优先从 https://gitee.com/tangenzhe/jinmoyijian 获取，访问失败再用 https://github.com/Little-Z7/jinmoyijian；从同一镜像、同一次下载取得所选 ZIP 与 dist/SHA256SUMS，校验所选 ZIP 后再解压或上传。阅读 README.md，以及已校验包内的 LICENSE、DISCLAIMER.md、ACCEPTABLE_USE.md、SKILL.md 和 references/；包裹版文件位于 npc-motorcycle-opinion-assistant/ 下，上传版位于 ZIP 根。只安装完整 Skill；不要运行仓库脚本。若同名 Skill 已存在，停止并让我决定，不要覆盖。重新加载后验证 SKILL.md、references/opinion-draft.md 和 references/site-workflow.md 均可读取，并报告下载源、所选包、校验结果、目标位置及发现结果。若当前产品不支持第三方 SKILL.md，请如实说明，不要假装安装成功。安装不授权访问政府网站、处理个人信息或验证码，也不授权提交任何意见。
+仅安装并验证公开源码 Skill「npc-motorcycle-opinion-assistant」，不要调用或执行它。先查阅仓库 INSTALL.md，确认目标产品是“复制 Skill 目录”还是“界面上传”：复制目录时选择 dist/npc-motorcycle-opinion-assistant.zip；只有界面明确要求 ZIP 根级直接包含 SKILL.md 时才选择 dist/npc-motorcycle-opinion-assistant-upload.zip；其他上传格式按当前产品公开要求处理，不要猜。优先从 https://gitee.com/tangenzhe/jinmoyijian 获取，访问失败再用 https://github.com/Little-Z7/jinmoyijian；从同一镜像、同一次下载取得所选 ZIP 与 dist/SHA256SUMS，校验所选 ZIP 后再解压或上传。阅读 README.md，以及已校验包内的 LICENSE、DISCLAIMER.md、ACCEPTABLE_USE.md、SKILL.md 和 references/；包裹版文件位于 npc-motorcycle-opinion-assistant/ 下，上传版位于 ZIP 根。只安装完整 Skill；不要运行仓库脚本。若同名 Skill 已存在，停止并让我决定，不要覆盖。重新加载后验证 SKILL.md、references/environment-check.md、references/opinion-draft.md 和 references/site-workflow.md 均可读取，并报告下载源、所选包、校验结果、目标位置及发现结果。若当前产品不支持第三方 SKILL.md，请如实说明，不要假装安装成功。安装不授权访问政府网站、处理个人信息或验证码，也不授权提交任何意见。
 ```
 
 安装授权不等于意见提交授权。详细指南还提供了每个产品可单独复制的一句话、手动目录、验证方式和兼容性说明。
@@ -49,7 +50,7 @@ $skill-installer 请安装 https://github.com/Little-Z7/jinmoyijian/tree/main/np
 安装后开启一个新会话，并通过以下方式调用：
 
 ```text
-$npc-motorcycle-opinion-assistant 请帮我在全国人大意见征集页面预填并核对禁摩相关意见，提交前先让我确认。
+$npc-motorcycle-opinion-assistant 请先检查当前会话的浏览器或 Computer Use 能力，再帮我在全国人大意见征集页面预填并核对禁摩相关意见；缺少能力时引导我开启或切换为人工协作，提交前先让我确认。
 ```
 
 ## 设计边界
@@ -65,7 +66,7 @@ $npc-motorcycle-opinion-assistant 请帮我在全国人大意见征集页面预�
 - 姓名、联系方式等个人信息只能由用户直接在官方页面填写；
 - 登录、短信验证和图片验证码只能由用户本人完成；
 - 发送个人信息前，以及每一次最终提交前，都必须取得紧邻动作的确认；
-- 若官方表单仍使用明文 HTTP，助手不得代点发送个人信息或最终提交，只能预填非敏感正文并交由用户本人决定；
+- 若官方表单仍使用明文 HTTP，助手只能只读导航并离线展示正文，不得在网页字段中输入内容，也不得代点发送个人信息或最终提交；
 - 四条意见若分别提交，需要四次独立确认，不能用一次授权覆盖。
 
 ## 仓库结构
@@ -75,6 +76,7 @@ npc-motorcycle-opinion-assistant/
 ├── SKILL.md
 ├── agents/openai.yaml
 └── references/
+    ├── environment-check.md
     ├── opinion-draft.md
     └── site-workflow.md
 

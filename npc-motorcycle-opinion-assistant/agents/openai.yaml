@@ -1,7 +1,7 @@
 interface:
   display_name: "全国人大禁摩意见填写助手"
   short_description: "逐次核对并填写全国人大摩托车政策意见，个人信息和提交均需确认"
-  default_prompt: "使用 $npc-motorcycle-opinion-assistant 在全国人大意见征集页面预填并核对禁摩相关意见，提交前先让我确认。"
+  default_prompt: "使用 $npc-motorcycle-opinion-assistant 先检查当前会话的 Browser Use、Chrome 或 Computer Use 能力，再在全国人大意见征集页面预填并核对禁摩相关意见；缺少网页能力时引导我开启或切换为人工协作，提交前先让我确认。"
 
 policy:
   allow_implicit_invocation: true
